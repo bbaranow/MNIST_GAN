@@ -1,21 +1,21 @@
 version: 2.1
-
-orbs:
-  python: circleci/python@0.2.1
-
 jobs:
-  build-and-test:
-    executor: python/default
+  build:
+    docker:
+      - image: circleci/buildpack-deps:stretch
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - checkout
-      - python/load-cache
-      - python/install-deps
-      - python/save-cache
-      - run:
-          command: ./manage.py test
-          name: Test
 
-workflows:
-  main:
-    jobs:
-      - build-and-test
+      - setup_remote_docker:
+          version: 19.03.13
+          docker_layer_caching: true
+
+      # build and push Docker image
+      - run: |
+          TAG=latest
+          docker build -t ganbaranob1/tf-gan:$TAG .
+          echo $DOCKERHUB_PASSWORD | docker login -u $DOCKER_USER --password-stdin
+          docker push ganbaranob1/tf-gan:$TAG
