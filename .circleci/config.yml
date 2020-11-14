@@ -1,28 +1,40 @@
 version: 2.1
 jobs:
   build:
+    environment:
+      IMAGE_NAME: ganbaranob1/tf-gan
     docker:
       - image: circleci/buildpack-deps:stretch
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Docker image
+          command: docker build -t $IMAGE_NAME:latest .
 
-      - setup_remote_docker:
-          version: 19.03.13
-
-      # build and push Docker image
-      - run: |
-          TAG=latest
-          docker build -t ganbaranob1/tf-gan:$TAG .
-          echo $DOCKERHUB_PASSWORD | docker login -u $DOCKER_USER --password-stdin
-          docker push ganbaranob1/tf-gan:$TAG
+  publish-latest:
+    environment:
+      IMAGE_NAME: tf-gan
+    docker:
+      - image: circleci/buildpack-deps:stretch
+    steps:
+      - setup_remote_docker
+      - run:
+          name: Publish Docker Image to Docker Hub
+          command: |
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker push $IMAGE_NAME:latest
 workflows:
   version: 2
   build-master:
     jobs:
       - build:
+          filters:
+            branches:
+              only: master
+      - publish-latest:
+          requires:
+            - build
           filters:
             branches:
               only: master
