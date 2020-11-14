@@ -19,3 +19,11 @@ jobs:
           docker build -t ganbaranob1/tf-gan:$TAG .
           echo $DOCKERHUB_PASSWORD | docker login -u $DOCKER_USER --password-stdin
           docker push ganbaranob1/tf-gan:$TAG
+workflows:
+  version: 2
+  build-master:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
