@@ -2,7 +2,7 @@ version: 2.1
 executors:
   docker-publisher:
     environment:
-      IMAGE_NAME: ganbaranob1/tf-gan
+      IMAGE_NAME: ganbbaranow/tf-gan
     docker:
       - image: circleci/buildpack-deps:stretch
 jobs:
