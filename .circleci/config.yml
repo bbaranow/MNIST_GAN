@@ -14,7 +14,7 @@ jobs:
 
   publish-latest:
     environment:
-      IMAGE_NAME: tf-gan
+      IMAGE_NAME: ganbaranob1/tf-gan
     docker:
       - image: circleci/buildpack-deps:stretch
     steps:
