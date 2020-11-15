@@ -36,6 +36,16 @@ jobs:
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
             docker push $IMAGE_NAME:latest
+  check-notebook:
+    executor: ganbbaranow/tf-gan
+    steps:
+      - checkout
+      - run:
+          name: Test notebook
+          command: papermill *ipynb output.ipynb
+      - store_artifacts:
+          path: output.ipynb
+          destination: notebook-output.ipynb
 workflows:
   version: 2
   build-master:
@@ -50,3 +60,6 @@ workflows:
           filters:
             branches:
               only: master
+  notebooks:
+    jobs:
+      - check-notebook
