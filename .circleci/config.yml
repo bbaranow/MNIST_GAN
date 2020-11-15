@@ -41,11 +41,10 @@ jobs:
             docker push $IMAGE_NAME:latest
   check-notebook:
     executor: testing
-    steps:
       - checkout
       - run:
           name: Test notebook
-          command: papermill *ipynb output.ipynb
+          command: papermill -p EPOCHS 1 /tf/MNIST_GAN/notebooks/*ipynb /tf/MNIST_GAN/notebooks/output.ipynb
       - store_artifacts:
           path: output.ipynb
           destination: notebook-output.ipynb
