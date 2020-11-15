@@ -5,6 +5,9 @@ executors:
       IMAGE_NAME: ganbbaranow/tf-gan
     docker:
       - image: circleci/buildpack-deps:stretch
+  testing:
+    docker:
+      - image: ganbbaranow/tf-gan:latest
 jobs:
   build:
     executor: docker-publisher
@@ -37,7 +40,7 @@ jobs:
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
             docker push $IMAGE_NAME:latest
   check-notebook:
-    executor: ganbbaranow/tf-gan
+    executor: testing
     steps:
       - checkout
       - run:
