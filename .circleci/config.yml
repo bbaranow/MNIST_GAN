@@ -41,6 +41,7 @@ jobs:
             docker push $IMAGE_NAME:latest
   check-notebook:
     executor: testing
+    steps:
       - checkout
       - run:
           name: Test notebook
