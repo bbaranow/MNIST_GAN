@@ -13,8 +13,8 @@ def generate_and_save_images(model, epoch, test_input):
         plt.imshow(predictions[i, :, :, 0] * 127.5 + 127.5, cmap='gray')
         plt.axis('off')
 
-    plt.savefig('image_at_epoch_{:04d}.png'.format(epoch))
-    plt.show()
+    plt.savefig('reports/image_at_epoch_{:04d}.png'.format(epoch))
+    plt.close()
 
 def plot_loss(gl, dl, epoch):
     plt.figure(figsize=(16,2))
@@ -23,7 +23,8 @@ def plot_loss(gl, dl, epoch):
     plt.legend()
     plt.title('Epoch '+str(epoch)+' Loss')
     ymax = plt.ylim()[1]
-    plt.show()
+    plt.savefig('reports/loss_{:04d}.png'.format(epoch))
+    plt.close()
 
 def plot_all_time_lostt(all_gl, all_dl):
 
@@ -33,4 +34,4 @@ def plot_all_time_lostt(all_gl, all_dl):
     plt.legend()
     plt.ylim((0,np.min([1.1*np.max(all_gl),2*ymax])))
     plt.title('All Time Loss')
-    plt.show()
+    plt.close()
