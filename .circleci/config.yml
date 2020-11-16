@@ -48,7 +48,7 @@ jobs:
           command: |
             pip install papermill
             ls -l
-            papermill -p EPOCHS 1 MNIST_GAN/notebooks/*ipynb MNIST_GAN/notebooks/output.ipynb
+            papermill -p EPOCHS 1 ./notebooks/*ipynb ./notebooks/output.ipynb
       - store_artifacts:
           path: output.ipynb
           destination: notebook-output.ipynb
