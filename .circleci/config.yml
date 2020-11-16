@@ -47,6 +47,7 @@ jobs:
           name: Test notebook
           command: |
             pip install papermill
+            git clone https://github.com/bbaranow/MNIST_GAN.git
             papermill -p EPOCHS 1 /tf/MNIST_GAN/notebooks/*ipynb /tf/MNIST_GAN/notebooks/output.ipynb
       - store_artifacts:
           path: output.ipynb
