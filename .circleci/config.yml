@@ -7,7 +7,7 @@ executors:
       - image: circleci/buildpack-deps:stretch
   testing:
     docker:
-      - image: tensorflow/tensorflow:latest-jupyter
+      - image: ganbbaranow/tf-gan:latest
 jobs:
   build:
     executor: docker-publisher
@@ -48,7 +48,7 @@ jobs:
           command: |
             pip install papermill
             ls -l
-            papermill -p EPOCHS 1 ./notebooks/*ipynb ./notebooks/output.ipynb
+            papermill -p EPOCHS 1 ./notebooks/papermill_test.ipynb ./notebooks/output.ipynb
       - store_artifacts:
           path: output.ipynb
           destination: notebook-output.ipynb
