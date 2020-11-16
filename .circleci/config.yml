@@ -51,7 +51,7 @@ jobs:
             papermill -p EPOCHS 1 ./notebooks/papermill_test.ipynb ./notebooks/output.ipynb
       - store_artifacts:
           path: output.ipynb
-          destination: notebook-output.ipynb
+          destination: notebooks/notebook-output.ipynb
 workflows:
   version: 2
   build-master:
