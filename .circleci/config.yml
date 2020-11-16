@@ -7,7 +7,7 @@ executors:
       - image: circleci/buildpack-deps:stretch
   testing:
     docker:
-      - image: tensorflow/tensorflow:latest
+      - image: tensorflow/tensorflow:latest-jupyter
 jobs:
   build:
     executor: docker-publisher
