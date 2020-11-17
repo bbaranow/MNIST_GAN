@@ -60,7 +60,7 @@ jobs:
       - run:
           name: Generate documentation
           command: |
-            sphinx-apidoc -o ./ ../mnist_gan
+            cd docs && sphinx-apidoc -o ./ ../mnist_gan
             make html
       - store_artifacts:
           path: ./_build/
