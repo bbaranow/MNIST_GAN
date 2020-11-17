@@ -6,3 +6,5 @@ RUN git clone https://github.com/bbaranow/MNIST_GAN.git
 RUN cd /tf/MNIST_GAN && poetry build
 RUN pip install --no-deps --force-reinstall /tf/MNIST_GAN/dist/*whl
 RUN pip install papermill
+RUN pip install sphinx
+RUN pip install sphinxcontrib-napoleon
