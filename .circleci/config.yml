@@ -46,8 +46,6 @@ jobs:
       - run:
           name: Test notebook
           command: |
-            pip install papermill
-            ls -l
             papermill -p EPOCHS 1 ./notebooks/papermill_test.ipynb ./notebooks/output.ipynb && jupyter nbconvert --to html notebooks/output.ipynb
       - store_artifacts:
           path: ./notebooks/output.ipynb
@@ -55,6 +53,18 @@ jobs:
       - store_artifacts:
           path: ./notebooks/output.html
           destination: notebook-output.html
+  generate-docs:
+    executor: testing
+    steps:
+      - checkout
+      - run:
+          name: Generate documentation
+          command: |
+            sphinx-apidoc -o ./ ../mnist_gan
+            make html
+      - store_artifacts:
+          path: ./_build/
+          destination: documentation
 workflows:
   version: 2
   build-master:
@@ -72,3 +82,6 @@ workflows:
   notebooks:
     jobs:
       - check-notebook
+  docs:
+    jobs:
+      - generate-docs
