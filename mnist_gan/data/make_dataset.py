@@ -2,6 +2,9 @@ from tensorflow.keras.datasets.fashion_mnist import load_data
 import tensorflow as tf
 
 def download_dataset():
+    '''
+    Function to download dataset to memory
+    '''
     (train_images, train_labels), (_, _) = tf.keras.datasets.mnist.load_data()
     return train_images, train_labels
 
