@@ -63,7 +63,7 @@ jobs:
             cd docs && sphinx-apidoc -o ./ ../mnist_gan
             make html
       - store_artifacts:
-          path: ./_build/
+          path: ./docs/_build/
           destination: documentation
 workflows:
   version: 2
