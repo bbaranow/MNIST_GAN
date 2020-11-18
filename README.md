@@ -62,3 +62,4 @@ To train model and generate random images:
     generate_images
     ```
     The images will be generated under `reports/` directory as `generated_examples.png`
+    
